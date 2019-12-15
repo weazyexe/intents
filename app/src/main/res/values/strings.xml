@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Intents</string>
+    <string name="search">Search</string>
+    <string name="uncategorized">Без категории</string>
+    <string name="categorized">С категорией</string>
+    <string name="test">Проверка</string>
+    <string name="error_icon">Error icon</string>
+    <string name="loading_error">Ошибка при загрузке данных</string>
+</resources>

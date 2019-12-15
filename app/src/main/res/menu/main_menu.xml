@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/uncategorizedButton"
+        android:title="@string/uncategorized"
+        android:icon="@drawable/ic_close"/>
+
+    <item
+        android:id="@+id/categorizedButton"
+        android:title="@string/categorized"
+        android:icon="@drawable/ic_done_all"/>
+
+    <item
+        android:id="@+id/testButton"
+        android:title="@string/test"
+        android:icon="@drawable/ic_debug"/>
+</menu>
