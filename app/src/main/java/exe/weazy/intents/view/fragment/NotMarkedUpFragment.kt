@@ -1,5 +1,6 @@
 package exe.weazy.intents.view.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,8 +14,12 @@ import exe.weazy.intents.R
 import exe.weazy.intents.recycler.adapter.IntentAdapter
 import exe.weazy.intents.recycler.diffutil.IntentDiffUtilItemCallback
 import exe.weazy.intents.state.State
+import exe.weazy.intents.util.MARK_UP_ACTIVITY_REQUEST_CODE
+import exe.weazy.intents.util.showSnackbar
+import exe.weazy.intents.view.activity.MarkUpActivity
 import exe.weazy.intents.viewmodel.NotMarkedUpViewModel
 import kotlinx.android.synthetic.main.fragment_uncategorized.*
+import kotlinx.android.synthetic.main.toolbar_search.*
 
 class NotMarkedUpFragment : Fragment() {
 
@@ -42,6 +47,7 @@ class NotMarkedUpFragment : Fragment() {
 
         initAdapter()
         initListeners()
+        initToolbar()
 
         viewModel.state.postValue(State.Loading())
     }
@@ -54,7 +60,7 @@ class NotMarkedUpFragment : Fragment() {
                 errorLayout.visibility = View.GONE
 
                 if (state.msg != null) {
-                    showSnackbar(state.msg)
+                    showSnackbar(mainLayout, state.msg)
                 }
 
                 //mainSwipeLayout.isEnabled = true
@@ -74,7 +80,7 @@ class NotMarkedUpFragment : Fragment() {
                 errorLayout.visibility = View.VISIBLE
 
                 if (state.msg != null) {
-                    showSnackbar(state.msg)
+                    showSnackbar(mainLayout, state.msg)
                 }
 
                 //mainSwipeLayout.isEnabled = true
@@ -84,7 +90,17 @@ class NotMarkedUpFragment : Fragment() {
 
     private fun initAdapter() {
         val onItemClick = View.OnClickListener {
-            showSnackbar("tapped")
+            val position = notMarkedUpRecyclerView.getChildAdapterPosition(it)
+            val intents = viewModel.intents.value
+
+            if (intents != null) {
+                val intentForMarkUp = intents[position]
+
+                val intentActivity = Intent(activity, MarkUpActivity::class.java)
+                intentActivity.putExtra("intent", intentForMarkUp)
+
+                startActivityForResult(intentActivity, MARK_UP_ACTIVITY_REQUEST_CODE)
+            }
         }
 
         adapter = IntentAdapter(IntentDiffUtilItemCallback(), onItemClick)
@@ -108,7 +124,7 @@ class NotMarkedUpFragment : Fragment() {
         })
     }
 
-    private fun showSnackbar(msg: String) {
-        Snackbar.make(mainLayout, msg, Snackbar.LENGTH_LONG).show()
+    private fun initToolbar() {
+        searchEditText.hint = getString(R.string.uncategorized)
     }
 }

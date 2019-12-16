@@ -1,9 +1,11 @@
 package exe.weazy.intents.view.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -13,8 +15,11 @@ import exe.weazy.intents.R
 import exe.weazy.intents.recycler.adapter.IntentAdapter
 import exe.weazy.intents.recycler.diffutil.IntentDiffUtilItemCallback
 import exe.weazy.intents.state.State
+import exe.weazy.intents.util.MARK_UP_ACTIVITY_REQUEST_CODE
+import exe.weazy.intents.view.activity.MarkUpActivity
 import exe.weazy.intents.viewmodel.MarkedUpViewModel
 import kotlinx.android.synthetic.main.fragment_categorized.*
+import kotlinx.android.synthetic.main.toolbar_search.*
 
 class MarkedUpFragment : Fragment() {
 
@@ -42,6 +47,7 @@ class MarkedUpFragment : Fragment() {
 
         initAdapter()
         initListeners()
+        initToolbar()
 
         viewModel.state.postValue(State.Loading())
     }
@@ -106,6 +112,10 @@ class MarkedUpFragment : Fragment() {
         viewModel.state.observe(this, Observer {
             setState(it)
         })
+    }
+
+    private fun initToolbar() {
+        searchEditText.hint = getString(R.string.categorized)
     }
 
     private fun showSnackbar(msg: String) {

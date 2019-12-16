@@ -24,6 +24,8 @@ class Repository {
 
     fun getIntentsDataSourceFactory(isMarkedUp : Boolean = false) = intentsDao.getAllByMarkedUp(isMarkedUp)
 
+    fun getCategories() = categoriesDao.getAll()
+
     fun saveIntents(intents : Collection<IntentEntity>) {
         intents.forEach {
             if (intentsDao.getById(it.id) != null) {

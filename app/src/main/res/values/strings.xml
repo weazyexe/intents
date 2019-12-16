@@ -6,4 +6,7 @@
     <string name="test">Проверка</string>
     <string name="error_icon">Error icon</string>
     <string name="loading_error">Ошибка при загрузке данных</string>
+    <string name="sentence">Предложение</string>
+    <string name="add">Добавить</string>
+    <string name="categories">Категории</string>
 </resources>

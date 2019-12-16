@@ -3,6 +3,7 @@ package exe.weazy.intents.entity
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 @Entity
 data class IntentEntity(
@@ -15,4 +16,4 @@ data class IntentEntity(
     val isMarkedUp : Boolean,
 
     val categories : List<CategoryEntity>?
-)
+) : Serializable

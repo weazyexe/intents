@@ -7,13 +7,10 @@ import exe.weazy.intents.entity.CategoryEntity
 @Dao
 interface CategoriesDao {
     @Query("SELECT * FROM categoryentity ORDER BY id ASC")
-    fun getAll(): DataSource.Factory<Int, CategoryEntity>
+    fun getAll(): List<CategoryEntity>
 
     @Query("SELECT * FROM categoryentity WHERE id = :id")
     fun getById(id: Int): CategoryEntity?
-
-    @Query("SELECT * FROM categoryentity ORDER BY id ASC LIMIT :limit OFFSET :offset")
-    fun getWithOffset(offset : Int, limit: Int) : DataSource.Factory<Int, CategoryEntity>
 
     @Insert
     fun insert(category: CategoryEntity)

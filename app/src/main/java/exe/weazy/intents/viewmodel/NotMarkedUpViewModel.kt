@@ -56,6 +56,8 @@ class NotMarkedUpViewModel : ViewModel() {
         loadIntents()
     }
 
+
+
     fun loadIntents() {
         // FIXME: waiting for API
     }
