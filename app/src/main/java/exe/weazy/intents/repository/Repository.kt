@@ -26,13 +26,17 @@ class Repository {
 
     fun getCategories() = categoriesDao.getAll()
 
+    fun saveIntent(intent: IntentEntity) {
+        if (intentsDao.getById(intent.id) != null) {
+            intentsDao.update(intent)
+        } else {
+            intentsDao.insert(intent)
+        }
+    }
+
     fun saveIntents(intents : Collection<IntentEntity>) {
         intents.forEach {
-            if (intentsDao.getById(it.id) != null) {
-                intentsDao.update(it)
-            } else {
-                intentsDao.insert(it)
-            }
+            saveIntent(it)
         }
     }
 
@@ -71,31 +75,32 @@ class Repository {
         )
 
         val intents = listOf(
-            IntentEntity(0, "Андроид", true, listOf(categories[0])),
-            IntentEntity(1, "Жульен - это вкусно!", true, listOf(categories[1], categories[4])),
-            IntentEntity(2, "Никита", true, listOf(categories[6])),
-            IntentEntity(3, "Android лучше iOS, а iOS лучше Android", true, listOf(categories[4], categories[0], categories[5])),
-            IntentEntity(4, "Владимир Путин - молодец", true, listOf(categories[10], categories[4], categories[7])),
-            IntentEntity(5, "Надпись не имеет смысла", true, listOf(categories[4])),
-            IntentEntity(6, "На улице холодно - от того и грустно", true, listOf(categories[2], categories[3])),
-            IntentEntity(7, "Spring Framework > Mobile", true, listOf(categories[5])),
-            IntentEntity(8, "Было взято интервью", true, listOf(categories[12])),
-            IntentEntity(9, "Людвиг XIV", true, listOf(categories[13], categories[7], categories[10])),
-            IntentEntity(10, "Костя гений", true, listOf(categories[4])),
+            IntentEntity(0, "Андроид", true, mutableListOf(categories[0])),
+            IntentEntity(1, "Жульен - это вкусно!", true, mutableListOf(categories[1], categories[4])),
+            IntentEntity(2, "Никита", true, mutableListOf(categories[6])),
+            IntentEntity(3, "Android лучше iOS, а iOS лучше Android", true, mutableListOf(categories[4], categories[0], categories[5])),
+            IntentEntity(4, "Владимир Путин - молодец", true, mutableListOf(categories[10], categories[4], categories[7])),
+            IntentEntity(5, "Надпись не имеет смысла", true, mutableListOf(categories[4])),
+            IntentEntity(6, "На улице холодно - от того и грустно", true, mutableListOf(categories[2], categories[3])),
+            IntentEntity(7, "Spring Framework > Mobile", true, mutableListOf(categories[5])),
+            IntentEntity(8, "Было взято интервью", true, mutableListOf(categories[12])),
+            IntentEntity(9, "Людвиг XIV", true, mutableListOf(categories[13], categories[7], categories[10])),
+            IntentEntity(10, "Костя гений", true, mutableListOf(categories[4])),
             IntentEntity(11, "Длинное предложение для проверки, едет ли верстка или нет? Lorem ipsum, " +
                     "or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs.",
-                true, listOf(categories[0])),
+                true, mutableListOf(categories[0])
+            ),
 
-            IntentEntity(12, "iOS", true, listOf(categories[0])),
-            IntentEntity(13, "Windows", true, listOf(categories[0])),
-            IntentEntity(14, "macOS", true, listOf(categories[0])),
-            IntentEntity(15, "macOS > Windows", true, listOf(categories[0], categories[4], categories[5])),
-            IntentEntity(16, "Мемыыы", true, listOf(categories[14])),
-            IntentEntity(17, "Руки в ноги", true, listOf(categories[8])),
-            IntentEntity(18, "Тарелка", true, listOf(categories[15])),
-            IntentEntity(19, "Надень шарф и шапку, на улице холодно", true, listOf(categories[15], categories[2])),
-            IntentEntity(20, "Дизайн этого приложения содержит множество зеленых оттенков", true, listOf(categories[4])),
-            IntentEntity(21, "Слишком много фактов", true, listOf(categories[5])),
+            IntentEntity(12, "iOS", true, mutableListOf(categories[0])),
+            IntentEntity(13, "Windows", true, mutableListOf(categories[0])),
+            IntentEntity(14, "macOS", true, mutableListOf(categories[0])),
+            IntentEntity(15, "macOS > Windows", true, mutableListOf(categories[0], categories[4], categories[5])),
+            IntentEntity(16, "Мемыыы", true, mutableListOf(categories[14])),
+            IntentEntity(17, "Руки в ноги", true, mutableListOf(categories[8])),
+            IntentEntity(18, "Тарелка", true, mutableListOf(categories[15])),
+            IntentEntity(19, "Надень шарф и шапку, на улице холодно", true, mutableListOf(categories[15], categories[2])),
+            IntentEntity(20, "Дизайн этого приложения содержит множество зеленых оттенков", true, mutableListOf(categories[4])),
+            IntentEntity(21, "Слишком много фактов", true, mutableListOf(categories[5])),
 
             IntentEntity(22, "Носорог", false, null),
             IntentEntity(23, "Gravity Falls", false, null),

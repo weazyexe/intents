@@ -61,4 +61,8 @@ class NotMarkedUpViewModel : ViewModel() {
     fun loadIntents() {
         // FIXME: waiting for API
     }
+
+    fun saveIntent(intent : IntentEntity) {
+        repository.saveIntent(intent)
+    }
 }

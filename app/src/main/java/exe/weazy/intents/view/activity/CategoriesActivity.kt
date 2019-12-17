@@ -1,19 +1,19 @@
 package exe.weazy.intents.view.activity
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.CheckBox
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import exe.weazy.intents.R
 import exe.weazy.intents.entity.CategoryEntity
 import exe.weazy.intents.recycler.adapter.CategoryAdapter
+import exe.weazy.intents.util.ERROR_RESULT_CODE
 import exe.weazy.intents.util.SUCCESS_RESULT_CODE
 import exe.weazy.intents.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.activity_categories.*
-import kotlinx.android.synthetic.main.item_category.*
 
 class CategoriesActivity : AppCompatActivity() {
 
@@ -32,13 +32,15 @@ class CategoriesActivity : AppCompatActivity() {
 
         categories = mutableListOf()
 
-        // TODO: if not false??
+        val rawCategories = intent.getParcelableArrayExtra("categories")
+
         viewModel.categories.value?.forEach {
-            categories.add(Pair(false, it))
+            val flag = rawCategories.contains(it)
+            categories.add(Pair(flag, it))
         }
 
         initAdapter()
-        initFab()
+        initListeners()
     }
 
     private fun initAdapter() {
@@ -64,17 +66,22 @@ class CategoriesActivity : AppCompatActivity() {
         categoriesRecyclerView.layoutManager = layoutManager
     }
 
-    private fun initFab() {
+    private fun initListeners() {
         setCategoriesButton.setOnClickListener {
             val intent = Intent()
 
             val checkedCategories = categories
                 .filter { it.first }
-                .map { it.second }
+                .map { it.second }.toTypedArray()
 
-            //intent.putExtra("categories", checkedCategories.toTypedArray())
+            intent.putExtra("categories", checkedCategories)
 
             setResult(SUCCESS_RESULT_CODE, intent)
+            finish()
+        }
+
+        closeButton.setOnClickListener {
+            setResult(ERROR_RESULT_CODE)
             finish()
         }
     }

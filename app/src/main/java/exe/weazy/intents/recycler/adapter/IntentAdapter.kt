@@ -39,8 +39,10 @@ class IntentAdapter(diffUtil : DiffUtil.ItemCallback<IntentEntity>, private val 
                 val categories = StringBuilder()
                 categoriesTextView.visibility = View.VISIBLE
 
-                intent.categories.forEachIndexed { i, it ->
-                    if (i != intent.categories.size - 1) {
+                val size = ((intent.categories?.size) ?: 1) - 1
+
+                intent.categories?.forEachIndexed { i, it ->
+                    if (i != size) {
                         categories.append("${it.name}, ")
                     } else {
                         categories.append(it.name)

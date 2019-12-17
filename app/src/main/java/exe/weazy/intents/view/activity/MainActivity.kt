@@ -1,5 +1,6 @@
 package exe.weazy.intents.view.activity
 
+import android.content.Intent
 import android.graphics.drawable.AnimatedVectorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -8,7 +9,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import exe.weazy.intents.R
+import exe.weazy.intents.entity.IntentEntity
 import exe.weazy.intents.repository.Repository
+import exe.weazy.intents.util.MARK_UP_ACTIVITY_REQUEST_CODE
+import exe.weazy.intents.util.SUCCESS_RESULT_CODE
 import exe.weazy.intents.view.fragment.MarkedUpFragment
 import exe.weazy.intents.view.fragment.TestFragment
 import exe.weazy.intents.view.fragment.NotMarkedUpFragment
@@ -23,7 +27,6 @@ class MainActivity : AppCompatActivity() {
     private var active = Fragment()
 
     private lateinit var viewModel : MainViewModel
-
 
     private var newPosition = 0
     private var startingPosition = 0
@@ -83,8 +86,8 @@ class MainActivity : AppCompatActivity() {
         mainBottomNav.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
 
         // make placeholder data
-        val repository = Repository()
-        repository.putPlaceholderData()
+        /*val repository = Repository()
+        repository.putPlaceholderData()*/
 
         loadFragments()
 
@@ -136,8 +139,6 @@ class MainActivity : AppCompatActivity() {
 
         super.onSaveInstanceState(outState)
     }
-
-
 
     private fun loadFragments() {
         uncategorizedFragment = NotMarkedUpFragment()

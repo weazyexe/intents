@@ -1,6 +1,8 @@
 package exe.weazy.intents.view.fragment
 
+import android.app.ActivityOptions
 import android.content.Intent
+import android.graphics.drawable.AnimatedVectorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,15 +11,18 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import exe.weazy.intents.R
+import exe.weazy.intents.entity.IntentEntity
 import exe.weazy.intents.recycler.adapter.IntentAdapter
 import exe.weazy.intents.recycler.diffutil.IntentDiffUtilItemCallback
 import exe.weazy.intents.state.State
 import exe.weazy.intents.util.MARK_UP_ACTIVITY_REQUEST_CODE
+import exe.weazy.intents.util.SUCCESS_RESULT_CODE
 import exe.weazy.intents.util.showSnackbar
 import exe.weazy.intents.view.activity.MarkUpActivity
 import exe.weazy.intents.viewmodel.NotMarkedUpViewModel
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_uncategorized.*
 import kotlinx.android.synthetic.main.toolbar_search.*
 
@@ -96,10 +101,13 @@ class NotMarkedUpFragment : Fragment() {
             if (intents != null) {
                 val intentForMarkUp = intents[position]
 
-                val intentActivity = Intent(activity, MarkUpActivity::class.java)
+                val intentActivity = Intent(requireActivity(), MarkUpActivity::class.java)
                 intentActivity.putExtra("intent", intentForMarkUp)
 
-                startActivityForResult(intentActivity, MARK_UP_ACTIVITY_REQUEST_CODE)
+                val fab = activity?.findViewById<FloatingActionButton>(R.id.actionFab)
+                val options = ActivityOptions.makeSceneTransitionAnimation(activity, fab, "my_fab")
+
+                startActivityForResult(intentActivity, MARK_UP_ACTIVITY_REQUEST_CODE, options.toBundle())
             }
         }
 
@@ -126,5 +134,23 @@ class NotMarkedUpFragment : Fragment() {
 
     private fun initToolbar() {
         searchEditText.hint = getString(R.string.uncategorized)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+
+        when (requestCode) {
+            MARK_UP_ACTIVITY_REQUEST_CODE -> {
+                when (resultCode) {
+                    SUCCESS_RESULT_CODE -> {
+                        if (data != null) {
+                            val intent = data.getParcelableExtra("intent") as IntentEntity
+                            viewModel.saveIntent(intent)
+                        }
+                    }
+                }
+            }
+        }
+
+        super.onActivityResult(requestCode, resultCode, data)
     }
 }
