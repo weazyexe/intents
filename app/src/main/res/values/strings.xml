@@ -9,4 +9,5 @@
     <string name="sentence">Предложение</string>
     <string name="add">Добавить</string>
     <string name="categories">Категории</string>
+    <string name="no_data">Данных нет</string>
 </resources>
