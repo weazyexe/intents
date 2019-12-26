@@ -15,16 +15,21 @@
             android:id="@+id/searchBar"
             layout="@layout/toolbar_search" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/markedUpRecyclerView"
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/mainSwipeLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
-        </androidx.recyclerview.widget.RecyclerView>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/markedUpRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     </LinearLayout>
-
-
 
     <include
         android:id="@+id/errorLayout"
@@ -33,5 +38,9 @@
     <include
         android:id="@+id/loadingLayout"
         layout="@layout/layout_loading"/>
+
+    <include
+        android:id="@+id/withoutContentLayout"
+        layout="@layout/layout_without_content"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

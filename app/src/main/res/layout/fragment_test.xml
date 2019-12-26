@@ -1,13 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/mainLayout">
+    android:id="@+id/mainLayout"
+    android:padding="16dp">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/test"
-        android:layout_gravity="center"/>
+        android:hint="@string/sentence"
+        android:layout_marginTop="32dp">
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/sentenceTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textMultiLine"
+            android:minLines="4"
+            android:scrollbars="vertical"
+            android:gravity="top"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="72dp">
+
+        <LinearLayout
+            android:id="@+id/dataLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center">
+
+            <TextView
+                android:id="@+id/categoriesHeaderTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="Распознаны категории"
+                android:textAlignment="center"
+                android:textSize="18sp"
+                android:textColor="@color/colorGreen"/>
+
+            <TextView
+                android:id="@+id/categoriesTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="Операционные системы\nУчёба\nПутешествия"
+                android:textSize="24sp"
+                android:textColor="@android:color/black"
+                android:textAlignment="center"
+                android:layout_marginTop="4dp"/>
+
+        </LinearLayout>
+
+        <include
+            android:id="@+id/errorLayout"
+            layout="@layout/layout_error"/>
+
+        <include
+            android:id="@+id/loadingLayout"
+            layout="@layout/layout_loading"/>
+
+    </FrameLayout>
+
+</LinearLayout>
