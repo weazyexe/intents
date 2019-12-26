@@ -1,21 +1,16 @@
 package exe.weazy.intents.view.activity
 
-import android.content.Intent
 import android.graphics.drawable.AnimatedVectorDrawable
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import exe.weazy.intents.R
-import exe.weazy.intents.entity.IntentEntity
-import exe.weazy.intents.repository.Repository
-import exe.weazy.intents.util.MARK_UP_ACTIVITY_REQUEST_CODE
-import exe.weazy.intents.util.SUCCESS_RESULT_CODE
 import exe.weazy.intents.view.fragment.MarkedUpFragment
-import exe.weazy.intents.view.fragment.TestFragment
 import exe.weazy.intents.view.fragment.NotMarkedUpFragment
+import exe.weazy.intents.view.fragment.TestFragment
 import exe.weazy.intents.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 

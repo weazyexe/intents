@@ -16,6 +16,8 @@ import exe.weazy.intents.recycler.adapter.IntentAdapter
 import exe.weazy.intents.recycler.diffutil.IntentDiffUtilItemCallback
 import exe.weazy.intents.state.State
 import exe.weazy.intents.util.MARK_UP_ACTIVITY_REQUEST_CODE
+import exe.weazy.intents.util.NO_CONTENT_TAG
+import exe.weazy.intents.util.showSnackbar
 import exe.weazy.intents.view.activity.MarkUpActivity
 import exe.weazy.intents.viewmodel.MarkedUpViewModel
 import kotlinx.android.synthetic.main.fragment_categorized.*
@@ -60,37 +62,46 @@ class MarkedUpFragment : Fragment() {
                 errorLayout.visibility = View.GONE
 
                 if (state.msg != null) {
-                    showSnackbar(state.msg)
+                    if (state.msg != NO_CONTENT_TAG) {
+                        showSnackbar(mainLayout, state.msg)
+                    } else {
+                        markedUpRecyclerView.visibility = View.GONE
+                        withoutContentLayout.visibility = View.VISIBLE
+                    }
+                } else {
+                    withoutContentLayout.visibility = View.GONE
                 }
 
-                //mainSwipeLayout.isEnabled = true
+                mainSwipeLayout.isEnabled = true
             }
 
             is State.Loading -> {
                 markedUpRecyclerView.visibility = View.GONE
+                withoutContentLayout.visibility = View.GONE
                 loadingLayout.visibility = View.VISIBLE
                 errorLayout.visibility = View.GONE
 
-                //mainSwipeLayout.isRefreshing = false
+                mainSwipeLayout.isRefreshing = false
             }
 
             is State.Error -> {
                 markedUpRecyclerView.visibility = View.GONE
+                withoutContentLayout.visibility = View.GONE
                 loadingLayout.visibility = View.GONE
                 errorLayout.visibility = View.VISIBLE
 
                 if (state.msg != null) {
-                    showSnackbar(state.msg)
+                    showSnackbar(mainLayout, state.msg)
                 }
 
-                //mainSwipeLayout.isEnabled = true
+                mainSwipeLayout.isEnabled = true
             }
         }
     }
 
     private fun initAdapter() {
         val onItemClick = View.OnClickListener {
-            showSnackbar("tapped")
+            showSnackbar(mainLayout, "tapped")
         }
 
         adapter = IntentAdapter(IntentDiffUtilItemCallback(), onItemClick)
@@ -106,19 +117,22 @@ class MarkedUpFragment : Fragment() {
 
             if (it.isNotEmpty()) {
                 viewModel.state.postValue(State.Loaded())
+            } else if (mainSwipeLayout.isEnabled) {
+                viewModel.state.postValue(State.Loaded(NO_CONTENT_TAG))
             }
         })
 
         viewModel.state.observe(this, Observer {
             setState(it)
         })
+
+        mainSwipeLayout.setOnRefreshListener {
+            viewModel.refresh()
+            mainSwipeLayout.isEnabled = false
+        }
     }
 
     private fun initToolbar() {
         searchEditText.hint = getString(R.string.categorized)
-    }
-
-    private fun showSnackbar(msg: String) {
-        Snackbar.make(mainLayout, msg, Snackbar.LENGTH_LONG).show()
     }
 }

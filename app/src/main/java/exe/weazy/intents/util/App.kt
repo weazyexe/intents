@@ -4,6 +4,7 @@ import android.app.Application
 import exe.weazy.intents.di.AppComponent
 import exe.weazy.intents.di.DaggerAppComponent
 import exe.weazy.intents.di.DatabaseModule
+import exe.weazy.intents.di.NetworkModule
 
 class App : Application() {
 
@@ -18,6 +19,7 @@ class App : Application() {
 
         component = DaggerAppComponent.builder()
             .databaseModule(DatabaseModule(applicationContext))
+            .networkModule(NetworkModule())
             .build()
     }
 }
