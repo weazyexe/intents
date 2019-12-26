@@ -48,13 +48,15 @@ class TestFragment : Fragment() {
         })
 
         viewModel.predicted.observe(this, Observer {
-            val categories = StringBuilder()
+            /*val categories = StringBuilder()
             it.forEach { category ->
                 categories.append(category.name)
                 categories.append('\n')
             }
 
-            categoriesTextView.text = categories.toString()
+            categoriesTextView.text = categories.toString()*/
+
+            categoriesTextView.text = it.name
         })
 
         val fab = activity?.findViewById<FloatingActionButton>(R.id.actionFab)

@@ -42,7 +42,7 @@
                 android:id="@+id/categoriesHeaderTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:text="Распознаны категории"
+                android:text="@string/category_predicted"
                 android:textAlignment="center"
                 android:textSize="18sp"
                 android:textColor="@color/colorGreen"/>

@@ -24,6 +24,6 @@ interface NetworkService {
     ) : Observable<IntentResponse>
 
     @FormUrlEncoded
-    @GET("predict_category")
-    fun getPredictedCategory(@Field("content") content : String) : Observable<CategoriesResponse>
+    @POST("predict_category/")
+    fun getPredictedCategory(@Field("content") content : String) : Observable<CategoryResponse>
 }

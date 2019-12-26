@@ -5,6 +5,7 @@ import exe.weazy.intents.db.CategoriesDao
 import exe.weazy.intents.db.IntentsDao
 import exe.weazy.intents.entity.CategoryEntity
 import exe.weazy.intents.entity.IntentEntity
+import exe.weazy.intents.network.CategoryResponse
 import exe.weazy.intents.network.IntentResponse
 import exe.weazy.intents.network.NetworkService
 import exe.weazy.intents.util.App
@@ -38,7 +39,7 @@ class Repository {
 
     fun getCategoriesObservable() = service.getCategories()
 
-    fun predictCategories(content: String) = service.getPredictedCategory(content)
+    fun predictCategories(content: String) : Observable<CategoryResponse> = service.getPredictedCategory(content)
 
     fun getCategories() = categoriesDao.getAll()
 

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import exe.weazy.intents.entity.CategoryEntity
+import exe.weazy.intents.network.CategoryResponse
 import exe.weazy.intents.repository.Repository
 import exe.weazy.intents.state.TestState
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -15,7 +16,7 @@ class TestViewModel : ViewModel() {
 
     var state = MutableLiveData<TestState>(TestState.Input())
 
-    var predicted : MutableLiveData<List<CategoryEntity>> = MutableLiveData()
+    var predicted : MutableLiveData<CategoryEntity> = MutableLiveData()
 
     @SuppressLint("CheckResult")
     fun predictCategory(content: String) {
@@ -28,8 +29,8 @@ class TestViewModel : ViewModel() {
                 if (response.error != null) {
                     handleError(response.error)
                 } else {
-                    predicted.postValue(response.result)
                     state.postValue(TestState.Done())
+                    predicted.postValue(response.result)
                 }
             }, { t ->
                 val message = t.message
