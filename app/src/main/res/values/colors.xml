@@ -5,7 +5,9 @@
     <color name="colorAccent">@color/colorGreen</color>
 
     <color name="colorGray">#AAA</color>
+    <color name="colorDarkGray">#333</color>
     <color name="colorGreen">#72A854</color>
+    <color name="colorRed">#A85454</color>
     <color name="colorDarkGreen">#639249</color>
     <color name="colorNearlyWhite">#FAFAFA</color>
 </resources>

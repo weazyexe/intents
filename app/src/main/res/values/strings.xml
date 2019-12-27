@@ -11,4 +11,5 @@
     <string name="categories">Категории</string>
     <string name="no_data">Данных нет</string>
     <string name="category_predicted">Распознаны категории</string>
+    <string name="categories_not_recognized">Категории не распознаны</string>
 </resources>
