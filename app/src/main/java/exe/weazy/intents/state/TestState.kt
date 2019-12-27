@@ -5,4 +5,5 @@ interface TestState {
     class Loading : TestState
     class Error(val msg: String) : TestState
     class Done: TestState
+    class NotRecognized : TestState
 }

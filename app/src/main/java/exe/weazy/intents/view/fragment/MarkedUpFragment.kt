@@ -49,7 +49,6 @@ class MarkedUpFragment : Fragment() {
 
         initAdapter()
         initListeners()
-        initToolbar()
 
         viewModel.state.postValue(State.Loading())
     }
@@ -130,9 +129,5 @@ class MarkedUpFragment : Fragment() {
             viewModel.refresh()
             mainSwipeLayout.isEnabled = false
         }
-    }
-
-    private fun initToolbar() {
-        searchEditText.hint = getString(R.string.categorized)
     }
 }

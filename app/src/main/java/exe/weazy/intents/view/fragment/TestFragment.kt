@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import exe.weazy.intents.R
 import exe.weazy.intents.state.TestState
+import exe.weazy.intents.util.hideKeyboard
 import exe.weazy.intents.viewmodel.TestViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_test.*
@@ -48,19 +49,12 @@ class TestFragment : Fragment() {
         })
 
         viewModel.predicted.observe(this, Observer {
-            /*val categories = StringBuilder()
-            it.forEach { category ->
-                categories.append(category.name)
-                categories.append('\n')
-            }
-
-            categoriesTextView.text = categories.toString()*/
-
             categoriesTextView.text = it.name
         })
 
         val fab = activity?.findViewById<FloatingActionButton>(R.id.actionFab)
         fab?.setOnClickListener {
+            hideKeyboard(mainLayout, activity)
             viewModel.predictCategory(sentenceTextView.text.toString())
         }
     }
@@ -71,24 +65,35 @@ class TestFragment : Fragment() {
                 dataLayout.visibility = View.VISIBLE
                 loadingLayout.visibility = View.GONE
                 errorLayout.visibility = View.GONE
+                notRecognizedLayout.visibility = View.GONE
             }
 
             is TestState.Input -> {
                 dataLayout.visibility = View.GONE
                 loadingLayout.visibility = View.GONE
                 errorLayout.visibility = View.GONE
+                notRecognizedLayout.visibility = View.GONE
             }
 
             is TestState.Loading -> {
                 dataLayout.visibility = View.GONE
                 loadingLayout.visibility = View.VISIBLE
                 errorLayout.visibility = View.GONE
+                notRecognizedLayout.visibility = View.GONE
             }
 
             is TestState.Error -> {
                 dataLayout.visibility = View.GONE
                 loadingLayout.visibility = View.GONE
                 errorLayout.visibility = View.VISIBLE
+                notRecognizedLayout.visibility = View.GONE
+            }
+
+            is TestState.NotRecognized -> {
+                dataLayout.visibility = View.GONE
+                loadingLayout.visibility = View.GONE
+                errorLayout.visibility = View.GONE
+                notRecognizedLayout.visibility = View.VISIBLE
             }
         }
     }

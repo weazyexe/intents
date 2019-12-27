@@ -51,7 +51,6 @@ class NotMarkedUpFragment : Fragment() {
 
         initAdapter()
         initListeners()
-        initToolbar()
 
         viewModel.state.postValue(State.Loading())
     }
@@ -145,10 +144,6 @@ class NotMarkedUpFragment : Fragment() {
             viewModel.refresh()
             mainSwipeLayout.isEnabled = false
         }
-    }
-
-    private fun initToolbar() {
-        searchEditText.hint = getString(R.string.uncategorized)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
